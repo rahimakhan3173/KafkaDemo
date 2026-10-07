@@ -1,0 +1,19 @@
+package com.rk.kafkademo.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
+import org.springframework.kafka.listener.DefaultErrorHandler;
+import org.springframework.util.backoff.FixedBackOff;
+
+@Configuration
+public class KafkaErrorConfig {
+
+//    FixedBackOff(1000L, 3) waits 1 second between attempts and retries 3 times after the first failure.
+    @Bean
+    public DefaultErrorHandler errorHandler(KafkaTemplate<String, String> template) {
+        DeadLetterPublishingRecoverer recoverer = new DeadLetterPublishingRecoverer(template);
+        return new DefaultErrorHandler(recoverer, new FixedBackOff(1000L, 3));
+    }
+}

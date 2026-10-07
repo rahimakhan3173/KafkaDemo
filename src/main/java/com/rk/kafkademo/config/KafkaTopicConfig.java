@@ -17,4 +17,12 @@ public class KafkaTopicConfig {
                 .replicas(1)
                 .build();
     }
+
+    @Bean
+    public NewTopic demoDltTopic() {
+        return TopicBuilder.name(TOPIC + "-dlt")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
 }

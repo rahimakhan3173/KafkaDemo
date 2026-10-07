@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Large media (GitHub rejects files over 100 MB)
+vedio/
+*.mp4
+*.zip
